@@ -1,0 +1,35 @@
+Akash Sharma
+akash@email.com | Chennai, India | +91 1234567890 | linkedin.com/in/akashsharma | github.com/akashsharma | Chennai
+
+## SUMMARY
+Results-driven Data Scientist with 2+ years of experience in building and deploying machine learning models, driving business growth through data-driven insights, and collaborating with cross-functional teams to drive innovation.
+
+## SKILLS
+- Technical: Python, SQL, TensorFlow, Docker, Kubernetes, Pandas, Scikit-learn
+- Tools: Power BI, AWS
+- Soft Skills: Communication, Problem-solving, Leadership
+
+## EXPERIENCE
+Data Scientist — ABB (2022 - Present)
+- Built predictive models using Python and Scikit-learn, achieving 85% accuracy on test data
+- Deployed machine learning models to production using Docker and Kubernetes, resulting in a 20% reduction in inference time
+- Collaborated with product teams to drive business growth through data-driven insights, leading to a 15% increase in sales
+
+## PROJECTS
+Deploying a TensorFlow Model to Production | TensorFlow, Docker, Kubernetes
+- Built a TensorFlow model to predict customer churn and deployed it to production using Docker and Kubernetes, achieving a 20% reduction in inference time
+- Improved model accuracy by 10% through hyperparameter tuning and feature engineering
+
+Containerizing a Machine Learning Model | Docker, Kubernetes
+- Containerized a machine learning model using Docker and deployed it to a cloud platform, achieving a 30% reduction in deployment time
+- Simplified model deployment and reduced infrastructure costs by 25%
+
+Building a Real-Time Inference Pipeline | TensorFlow, Docker, Kubernetes
+- Built a real-time inference pipeline using TensorFlow and deployed it to production using Docker and Kubernetes, achieving a 15% reduction in latency
+- Improved model performance by 12% through real-time data processing and feedback loop optimization
+
+## EDUCATION
+BTech Computer Science — VIT University 2022
+
+## CERTIFICATIONS
+None
