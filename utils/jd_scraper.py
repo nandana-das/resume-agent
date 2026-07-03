@@ -5,6 +5,11 @@ import re
 import httpx
 from bs4 import BeautifulSoup
 
+try:
+    import streamlit as st
+except Exception:
+    st = None
+
 
 def _clean_text(text: str) -> str:
     text = re.sub(r"\s+", " ", text or "")
@@ -17,6 +22,19 @@ def _clean_text_preserve_lines(text: str) -> str:
     lines = [re.sub(r"[ \t]+", " ", line).strip() for line in (text or "").splitlines()]
     lines = [line for line in lines if line]
     return "\n".join(lines)
+
+
+def _get_config_value(key: str):
+    if st is not None:
+        try:
+            if key in st.secrets:
+                value = st.secrets.get(key)
+                if value:
+                    return value
+        except Exception:
+            pass
+
+    return os.getenv(key)
 
 
 def _extract_jobposting_jsonld(soup: BeautifulSoup) -> str:
@@ -150,7 +168,7 @@ def scrape_with_firecrawl(url: str) -> str:
     Optional fast path when FIRECRAWL_API_KEY is available.
     Falls back to HTTP scraping if the Firecrawl client is unavailable or fails.
     """
-    api_key = os.getenv("FIRECRAWL_API_KEY")
+    api_key = _get_config_value("FIRECRAWL_API_KEY")
     if not api_key:
         return ""
 
@@ -199,7 +217,7 @@ def scrape_with_httpx(url: str) -> str:
 
 
 def fetch_jd_from_url(url: str) -> str:
-    if os.getenv("FIRECRAWL_API_KEY"):
+    if _get_config_value("FIRECRAWL_API_KEY"):
         try:
             text = scrape_with_firecrawl(url)
             if text and len(text) > 200:
