@@ -70,7 +70,8 @@ def evaluator_node(state: ResumeState) -> ResumeState:
         print("  ⭐ Agent 2 running — Evaluating resume...")
         evaluation = evaluate_resume(
             state["resume_text"],
-            state["parsed_jd"]
+            state["parsed_jd"],
+            state["jd_text"]
         )
         return {
             **state,
