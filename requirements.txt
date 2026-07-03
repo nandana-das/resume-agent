@@ -1,0 +1,12 @@
+streamlit
+langchain
+langchain-groq
+langgraph
+groq
+pdfplumber
+python-docx
+httpx
+beautifulsoup4
+python-dotenv
+firecrawl-py
+reportlab
