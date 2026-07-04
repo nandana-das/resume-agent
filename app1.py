@@ -28,6 +28,7 @@ _defaults = {
     "include_projects": True,
     "pipeline_result": None,
     "final_resume": None,
+    "final_resume_is_fallback": False,
 }
 for _k, _v in _defaults.items():
     if _k not in st.session_state:
@@ -316,7 +317,14 @@ def run_full_pipeline():
                 return
 
             st.session_state.pipeline_result = result
-            st.session_state.final_resume = result.get("final_resume")
+            final_resume = (result.get("final_resume") or "").strip()
+            if not final_resume:
+                final_resume = st.session_state.resume_text.strip()
+                st.session_state.final_resume_is_fallback = True
+            else:
+                st.session_state.final_resume_is_fallback = False
+
+            st.session_state.final_resume = final_resume
             status.update(label="All done!", state="complete")
             go_to(2)
 
@@ -448,12 +456,15 @@ def render_step3():
 
 # ── STEP 4 — Final resume ──
 def render_step4():
-    final_resume = st.session_state.final_resume
+    final_resume = (st.session_state.final_resume or "").strip()
     if not final_resume:
         go_to(1)
         return
 
     step_header(4, "Your new resume is ready", "Here's the tailored version — download it whenever you're ready.")
+
+    if st.session_state.final_resume_is_fallback:
+        st.warning("The tailored draft came back empty, so this download uses your uploaded resume text instead.")
 
     with card():
         lines = final_resume.strip().split("\n")
