@@ -59,18 +59,18 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 :root {
-    --bg: #faf9f7;
+    --bg: #fafafa;
     --card: #ffffff;
-    --border: #ece9e4;
-    --border-strong: #ddd8d0;
-    --ink: #23262f;
-    --ink-soft: #6e7180;
-    --accent: #ff6b4a;
-    --accent-soft: #ffede7;
-    --success: #22a06b;
-    --success-soft: #e8f7ef;
-    --warning: #c98a1f;
-    --warning-soft: #fdf3e3;
+    --border: #e7e7e5;
+    --border-strong: #d6d5d1;
+    --ink: #1a1a1a;
+    --ink-soft: #767671;
+    --accent: #1a1a1a;
+    --accent-soft: #f0efec;
+    --success: #1a1a1a;
+    --success-soft: #f0efec;
+    --warning: #4d4d49;
+    --warning-soft: #f5f4f1;
 }
 
 html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"], [data-testid="stHeader"] {
@@ -104,19 +104,19 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div > div[data-testid="stVerti
 .plain-line { font-size: 14.5px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 6px; }
 
 .pill { display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; padding: 6px 13px; border-radius: 999px; margin: 0 6px 6px 0; }
-.pill-good { background: var(--success-soft); color: var(--success); }
-.pill-todo { background: var(--warning-soft); color: var(--warning); }
+.pill-good { background: var(--ink); color: #fff; }
+.pill-todo { background: #fff; color: var(--ink-soft); border: 1.5px solid var(--border-strong); }
 
 .priority-tag { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
-.priority-first { background: var(--warning-soft); color: var(--warning); }
-.priority-good  { background: var(--accent-soft); color: var(--accent); }
-.priority-nice  { background: #eef0f6; color: var(--ink-soft); }
+.priority-first { background: var(--ink); color: #fff; }
+.priority-good  { background: var(--accent-soft); color: var(--ink); border: 1px solid var(--border-strong); }
+.priority-nice  { background: transparent; color: var(--ink-soft); border: 1px solid var(--border); }
 
-.project-card { background: var(--accent-soft); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; }
+.project-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; }
 .project-title { font-size: 14.5px; font-weight: 800; margin-bottom: 5px; color: var(--ink); }
 .project-desc { font-size: 13.5px; color: var(--ink); line-height: 1.6; margin-bottom: 4px; }
 
-.resume-preview { background: #fff; border-radius: 14px; padding: 30px 32px; font-size: 14px; line-height: 1.65; color: #232430; }
+.resume-preview { background: #fff; border-radius: 14px; padding: 30px 32px; font-size: 14px; line-height: 1.65; color: #262626; }
 .resume-name { font-size: 21px; font-weight: 800; text-align: center; margin-bottom: 4px; }
 .resume-contact { text-align: center; font-size: 12px; color: var(--ink-soft); margin-bottom: 20px; }
 .resume-section { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); margin: 16px 0 8px; padding-bottom: 4px; }
@@ -152,7 +152,7 @@ div[data-testid="stTextInput"] label, div[data-testid="stTextArea"] label {
     color: #fff !important;
     border: none !important;
 }
-.stButton button[kind="primary"]:hover { background: #e85a3a !important; }
+.stButton button[kind="primary"]:hover { background: #3a3a38 !important; }
 .stButton button[kind="secondary"] {
     background: #fff !important;
     color: var(--ink-soft) !important;
@@ -216,7 +216,7 @@ def render_step1():
     )
 
     with card():
-        st.markdown('<div class="section-title">📄 Your resume</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Your resume</div>', unsafe_allow_html=True)
         uploaded_file = st.file_uploader(
             "Add your resume", type=["pdf", "docx"], label_visibility="collapsed"
         )
@@ -225,19 +225,19 @@ def render_step1():
                 st.session_state.resume_text = extract_resume_text(uploaded_file)
                 st.session_state.resume_filename = uploaded_file.name
                 st.markdown(
-                    f'<p class="plain-line">✅ Got it — <strong>{uploaded_file.name}</strong> is ready.</p>',
+                    f'<p class="plain-line">✓ Got it — <strong>{uploaded_file.name}</strong> is ready.</p>',
                     unsafe_allow_html=True
                 )
             except Exception as e:
                 st.error(f"We couldn't read that file — try a PDF or Word document. ({e})")
         elif st.session_state.resume_text:
             st.markdown(
-                f'<p class="plain-line">✅ Using <strong>{st.session_state.resume_filename}</strong>.</p>',
+                f'<p class="plain-line">✓ Using <strong>{st.session_state.resume_filename}</strong>.</p>',
                 unsafe_allow_html=True
             )
 
     with card():
-        st.markdown('<div class="section-title">🎯 The job you want</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">The job you want</div>', unsafe_allow_html=True)
         st.session_state.target_role = st.text_input(
             "What job are you applying for?",
             value=st.session_state.target_role,
@@ -249,12 +249,12 @@ def render_step1():
 
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🔗 I have a link", use_container_width=True,
+            if st.button("I have a link", use_container_width=True,
                          type="primary" if st.session_state.jd_mode == "link" else "secondary"):
                 st.session_state.jd_mode = "link"
                 st.rerun()
         with col2:
-            if st.button("📋 I'll paste it myself", use_container_width=True,
+            if st.button("I'll paste it myself", use_container_width=True,
                          type="primary" if st.session_state.jd_mode == "paste" else "secondary"):
                 st.session_state.jd_mode = "paste"
                 st.rerun()
@@ -297,12 +297,12 @@ def run_full_pipeline():
     with st.status("Working on it...", expanded=True) as status:
         try:
             if st.session_state.jd_mode == "link":
-                st.write("🔎 Reading the job posting...")
+                st.write("Reading the job posting...")
                 st.session_state.jd_text = fetch_jd_from_url(st.session_state.job_url)
 
-            st.write("📖 Understanding what the role needs...")
-            st.write("⚖️ Comparing it to your resume...")
-            st.write("💡 Finding ways to improve it...")
+            st.write("Understanding what the role needs...")
+            st.write("Comparing it to your resume...")
+            st.write("Finding ways to improve it...")
 
             result = run_pipeline(
                 resume_text=st.session_state.resume_text,
@@ -340,17 +340,17 @@ def render_step2():
     with card():
         st.markdown(score_ring(score), unsafe_allow_html=True)
 
-        st.markdown('<div class="section-title">✅ What\'s working well</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">What\'s working well</div>', unsafe_allow_html=True)
         for s in ev.get("strengths", []):
             st.markdown(f'<p class="plain-line">{s}</p>', unsafe_allow_html=True)
 
         st.markdown('<div style="height:12px"></div>', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">💡 What could be better</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">What could be better</div>', unsafe_allow_html=True)
         for w in ev.get("weaknesses", []):
             st.markdown(f'<p class="plain-line">{w}</p>', unsafe_allow_html=True)
 
     with card():
-        st.markdown('<div class="section-title">🧩 Tools this job is looking for</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Tools this job is looking for</div>', unsafe_allow_html=True)
         pills = "".join(f'<span class="pill pill-good">{s} ✓</span>' for s in ev.get("matched_skills", []))
         pills += "".join(f'<span class="pill pill-todo">{s} — not found yet</span>' for s in ev.get("missing_skills", []))
         if pills:
@@ -385,7 +385,7 @@ def render_step3():
     }
 
     with card():
-        st.markdown('<div class="section-title">🔧 A few things to fix</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">A few things to fix</div>', unsafe_allow_html=True)
         for g in gap.get("critical_gaps", []):
             cls, label = priority_map.get(g.get("importance", "Medium"), ("priority-good", "Good to fix"))
             st.markdown(f"""
@@ -397,12 +397,12 @@ def render_step3():
             """, unsafe_allow_html=True)
 
     with card():
-        st.markdown('<div class="section-title">⚡ Easy fixes you can make right now</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Easy fixes you can make right now</div>', unsafe_allow_html=True)
         for qw in gap.get("quick_wins", []):
             st.markdown(f'<p class="plain-line">✓ {qw}</p>', unsafe_allow_html=True)
 
     with card():
-        st.markdown('<div class="section-title">🌱 New project ideas</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">New project ideas</div>', unsafe_allow_html=True)
         st.markdown('<p class="plain-line">Want us to add project ideas like these to your new resume?</p>', unsafe_allow_html=True)
 
         col1, col2 = st.columns(2)
@@ -479,7 +479,7 @@ def render_step4():
 
     docx_bytes = generate_resume_docx(final_resume)
     st.download_button(
-        "⬇ Download my resume",
+        "↓ Download my resume",
         data=docx_bytes,
         file_name="tailored_resume.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
